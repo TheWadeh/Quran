@@ -57,6 +57,13 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        "ayah-highlight": "hsl(var(--ayah-highlight))",
+        "ayah-number": "hsl(var(--ayah-number))",
+        bismillah: "hsl(var(--bismillah))",
+        "surah-header": "hsl(var(--surah-header))",
+      },
+      fontFamily: {
+        quran: ["Amiri", "serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -65,20 +72,12 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
       },
       animation: {

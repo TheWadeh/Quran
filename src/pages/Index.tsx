@@ -1,16 +1,28 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import SurahList from "@/components/SurahList";
+import QuranPage from "@/components/QuranPage";
+import AudioPlayerControls from "@/components/AudioPlayerControls";
+import { useQuranStore } from "@/store/quranStore";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
+  const [view, setView] = useState<"list" | "reader">("list");
+  const { loadSurah } = useQuranStore();
+
+  const handleSelectSurah = (surahNumber: number) => {
+    loadSurah(surahNumber);
+    setView("reader");
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
+    <div className="min-h-screen bg-background">
+      {view === "list" ? (
+        <SurahList onSelectSurah={handleSelectSurah} />
+      ) : (
+        <QuranPage onBack={() => setView("list")} />
+      )}
+      <AudioPlayerControls />
     </div>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
