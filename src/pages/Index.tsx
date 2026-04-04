@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SurahList from "@/components/SurahList";
 import QuranPage from "@/components/QuranPage";
 import AudioPlayerControls from "@/components/AudioPlayerControls";
@@ -6,7 +6,12 @@ import { useQuranStore } from "@/store/quranStore";
 
 const Index = () => {
   const [view, setView] = useState<"list" | "reader">("list");
-  const { loadSurah } = useQuranStore();
+  const { loadSurah, loadBookmarks, loadLastRead } = useQuranStore();
+
+  useEffect(() => {
+    loadBookmarks();
+    loadLastRead();
+  }, [loadBookmarks, loadLastRead]);
 
   const handleSelectSurah = (surahNumber: number) => {
     loadSurah(surahNumber);

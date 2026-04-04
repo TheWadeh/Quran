@@ -16,10 +16,6 @@ const SurahList = ({ onSelectSurah }: SurahListProps) => {
 
   useEffect(() => {
     loadSurahs();
-    loadBookmarks();
-    loadLastRead();
-    // Check initial theme
-    setIsDark(document.documentElement.classList.contains("dark"));
   }, []);
 
   const toggleTheme = () => {
@@ -102,7 +98,7 @@ const SurahList = ({ onSelectSurah }: SurahListProps) => {
       )}
 
       {/* List */}
-      <div className="flex-1 overflow-y-auto px-4 pb-4">
+      <div className="flex-1 overflow-y-auto px-4 pb-44">
         {tab === "surahs" ? (
           <div className="space-y-1">
             {filtered.map((surah) => (

@@ -157,26 +157,91 @@ html {
   animation: pulse-glow 2s infinite;
 }
 
-/* Mushaf page view - flowing text */
+/* Page flip animation */
+@keyframes pageFlipIn {
+  0% {
+    transform: perspective(1200px) rotateY(-90deg);
+    opacity: 0;
+  }
+  100% {
+    transform: perspective(1200px) rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes pageFlipOut {
+  0% {
+    transform: perspective(1200px) rotateY(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: perspective(1200px) rotateY(90deg);
+    opacity: 0;
+  }
+}
+
+.page-flip-enter {
+  animation: pageFlipIn 0.4s ease-out forwards;
+}
+
+.page-flip-exit {
+  animation: pageFlipOut 0.3s ease-in forwards;
+}
+
+/* Mushaf page view - real Quran page feel */
 .mushaf-page {
-  font-family: 'Amiri', serif;
+  font-family: 'Amiri', 'Traditional Arabic', serif;
+  direction: rtl;
+  line-height: 3.8;
   text-align: justify;
   text-align-last: center;
-  direction: rtl;
-  line-height: 3;
+  background: linear-gradient(135deg, #fdfbf7 0%, #f5f0e6 50%, #ebe4d3 100%);
+  box-shadow: 
+    0 4px 20px rgba(139, 69, 19, 0.15),
+    inset 0 0 60px rgba(139, 69, 19, 0.04);
+  border: 12px solid #654321;
+  position: relative;
+  min-height: 85vh;
+}
+
+.mushaf-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(to right, rgba(139, 69, 19, 0.08) 0%, transparent 8%),
+    linear-gradient(to left, rgba(139, 69, 19, 0.08) 0%, transparent 8%);
+  pointer-events: none;
+}
+
+.mushaf-page::after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border: 2px solid rgba(139, 69, 19, 0.1);
+  pointer-events: none;
 }
 
 .mushaf-page .ayah-inline {
   cursor: pointer;
-  padding: 2px 4px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
+  padding: 6px 10px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  display: inline;
 }
 
 .mushaf-page .ayah-inline:hover {
-  background-color: hsl(var(--muted));
+  background-color: rgba(34, 139, 34, 0.12);
 }
 
 .mushaf-page .ayah-inline.active {
-  background-color: hsl(var(--ayah-highlight));
+  background-color: rgba(34, 139, 34, 0.2);
+  outline: 2px solid #228b22;
+  border-radius: 4px;
 }

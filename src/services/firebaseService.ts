@@ -7,8 +7,6 @@ import {
   collection,
   getDocs,
   deleteDoc,
-  query,
-  where,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -56,12 +54,10 @@ export const removeBookmark = async (surah: number, ayah: number) => {
 };
 
 export const getBookmarks = async (): Promise<Bookmark[]> => {
-  const q = query(
-    collection(db, "bookmarks"),
-    where("userId", "==", DEFAULT_USER)
-  );
-  const snapshot = await getDocs(q);
-  return snapshot.docs.map((d) => d.data() as Bookmark);
+  const snapshot = await getDocs(collection(db, "bookmarks"));
+  return snapshot.docs
+    .map((d) => d.data() as Bookmark)
+    .filter((b) => b.userId === DEFAULT_USER);
 };
 
 export const isBookmarked = async (

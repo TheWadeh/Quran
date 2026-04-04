@@ -234,11 +234,19 @@ export const useQuranStore = create<QuranState>((set, get) => {
       const { bookmarks } = get();
       const exists = bookmarks.some((b) => b.surah === surah && b.ayah === ayah);
       if (exists) {
-        await removeBookmark(surah, ayah);
+        try {
+          await removeBookmark(surah, ayah);
+        } catch (e) {
+          console.error("Failed to remove bookmark:", e);
+        }
         set({ bookmarks: bookmarks.filter((b) => !(b.surah === surah && b.ayah === ayah)) });
       } else {
         const bm: Bookmark = { surah, ayah, surahName, createdAt: Date.now() };
-        await addBookmark(bm);
+        try {
+          await addBookmark(bm);
+        } catch (e) {
+          console.error("Failed to add bookmark:", e);
+        }
         set({ bookmarks: [...bookmarks, bm] });
       }
     },
