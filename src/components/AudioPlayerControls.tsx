@@ -34,24 +34,14 @@ const AudioPlayerControls = () => {
   const maxAyah = ayahs.length > 0 ? ayahs[ayahs.length - 1].numberInSurah : 0;
 
   const handlePlayPause = () => {
-    if (isPlaying) {
-      pause();
-    } else if (isPaused) {
-      resume();
-    } else if (currentAyah > 0) {
-      playAyah(currentAyah);
-    } else {
-      playAyah(1);
-    }
+    if (isPlaying) pause();
+    else if (isPaused) resume();
+    else if (currentAyah > 0) playAyah(currentAyah);
+    else playAyah(1);
   };
 
-  const handlePrev = () => {
-    if (currentAyah > 1) playAyah(currentAyah - 1);
-  };
-
-  const handleNext = () => {
-    if (currentAyah < maxAyah) playAyah(currentAyah + 1);
-  };
+  const handlePrev = () => { if (currentAyah > 1) playAyah(currentAyah - 1); };
+  const handleNext = () => { if (currentAyah < maxAyah) playAyah(currentAyah + 1); };
 
   const cycleRepeat = () => {
     const modes: RepeatMode[] = ["none", "single", "range"];
@@ -68,11 +58,11 @@ const AudioPlayerControls = () => {
   const active = isPlaying || isPaused;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 player-gradient">
-      <div className="bg-card/95 backdrop-blur-xl border-t border-border">
-        {/* Progress bar */}
+    <div className="fixed bottom-0 left-0 right-0 z-50">
+      <div className="bg-card/98 backdrop-blur-xl border-t border-border shadow-lg">
+        {/* Progress */}
         {active && duration > 0 && (
-          <div className="px-4 pt-2">
+          <div className="px-4 pt-3">
             <input
               type="range"
               min={0}
@@ -80,77 +70,51 @@ const AudioPlayerControls = () => {
               step={0.1}
               value={seek}
               onChange={(e) => seekTo(parseFloat(e.target.value))}
-              className="w-full h-1 rounded-full appearance-none bg-border cursor-pointer accent-accent"
+              className="w-full h-1 rounded-full appearance-none bg-muted cursor-pointer accent-primary"
             />
-            <div className="flex justify-between text-xs text-muted-foreground mt-1">
+            <div className="flex justify-between text-[10px] text-muted-foreground mt-1">
               <span>{formatTime(seek)}</span>
               <span>{formatTime(duration)}</span>
             </div>
           </div>
         )}
 
-        {/* Now playing info */}
+        {/* Now playing */}
         {currentAyah > 0 && (
-          <div className="text-center px-4 py-1">
-            <p className="text-xs text-muted-foreground">
-              {currentSurahName} · Ayah {currentAyah}
-            </p>
-          </div>
+          <p className="text-center text-xs text-muted-foreground px-4 py-1">
+            {currentSurahName} · Ayah {currentAyah}
+          </p>
         )}
 
         {/* Controls */}
-        <div className="flex items-center justify-center gap-4 px-4 pb-3 pt-1">
-          {/* Repeat */}
-          <button
-            onClick={cycleRepeat}
-            className={`p-2 rounded-full transition-colors ${
-              repeatMode !== "none" ? "text-accent" : "text-muted-foreground"
-            }`}
-            title={`Repeat: ${repeatMode}`}
-          >
-            {repeatMode === "single" ? (
-              <Repeat1 className="w-5 h-5" />
-            ) : (
-              <Repeat className="w-5 h-5" />
-            )}
+        <div className="flex items-center justify-center gap-3 px-4 pb-2 pt-1">
+          <button onClick={cycleRepeat}
+            className={`p-2 rounded-full transition-colors ${repeatMode !== "none" ? "text-primary" : "text-muted-foreground"}`}>
+            {repeatMode === "single" ? <Repeat1 className="w-4 h-4" /> : <Repeat className="w-4 h-4" />}
           </button>
 
-          <button
-            onClick={handlePrev}
-            className="p-2 rounded-full text-foreground hover:bg-secondary transition-colors"
-            disabled={currentAyah <= 1}
-          >
-            <SkipBack className="w-5 h-5" />
+          <button onClick={handlePrev} disabled={currentAyah <= 1}
+            className="p-2 rounded-full text-foreground hover:bg-muted transition-colors disabled:opacity-30">
+            <SkipBack className="w-4 h-4" />
           </button>
 
-          <button
-            onClick={handlePlayPause}
-            className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground hover:bg-primary/80 transition-colors"
-          >
-            {isPlaying ? (
-              <Pause className="w-5 h-5" />
-            ) : (
-              <Play className="w-5 h-5 ml-0.5" />
-            )}
+          <button onClick={handlePlayPause}
+            className="w-11 h-11 rounded-full bg-primary flex items-center justify-center text-primary-foreground hover:opacity-90 transition-opacity shadow-md">
+            {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}
           </button>
 
-          <button
-            onClick={handleNext}
-            className="p-2 rounded-full text-foreground hover:bg-secondary transition-colors"
-            disabled={currentAyah >= maxAyah}
-          >
-            <SkipForward className="w-5 h-5" />
+          <button onClick={handleNext} disabled={currentAyah >= maxAyah}
+            className="p-2 rounded-full text-foreground hover:bg-muted transition-colors disabled:opacity-30">
+            <SkipForward className="w-4 h-4" />
           </button>
 
-          <button
-            onClick={stop}
-            className="p-2 rounded-full text-muted-foreground hover:bg-secondary transition-colors"
-          >
-            <Square className="w-5 h-5" />
+          <button onClick={stop}
+            className="p-2 rounded-full text-muted-foreground hover:bg-muted transition-colors">
+            <Square className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Reciter selector */}
+        {/* Reciter */}
         <div className="px-4 pb-3">
           <select
             value={reciter.id}
@@ -158,12 +122,10 @@ const AudioPlayerControls = () => {
               const r = RECITERS.find((r) => r.id === e.target.value);
               if (r) setReciter(r);
             }}
-            className="w-full text-xs py-1.5 px-3 rounded-md bg-secondary border border-border text-foreground focus:outline-none"
+            className="w-full text-xs py-2 px-3 rounded-lg bg-muted border border-border text-foreground focus:outline-none"
           >
             {RECITERS.map((r) => (
-              <option key={r.id} value={r.id}>
-                {r.name}
-              </option>
+              <option key={r.id} value={r.id}>{r.name}</option>
             ))}
           </select>
         </div>
