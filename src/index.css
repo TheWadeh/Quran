@@ -6,49 +6,93 @@
 
 @layer base {
   :root {
-    --background: 150 20% 4%;
-    --foreground: 40 20% 90%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 5%;
 
-    --card: 150 15% 8%;
-    --card-foreground: 40 20% 90%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 5%;
 
-    --popover: 150 15% 8%;
-    --popover-foreground: 40 20% 90%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 5%;
 
-    --primary: 150 40% 30%;
-    --primary-foreground: 40 20% 95%;
+    --primary: 152 45% 28%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 150 15% 12%;
-    --secondary-foreground: 40 20% 85%;
+    --secondary: 0 0% 95%;
+    --secondary-foreground: 0 0% 15%;
 
-    --muted: 150 10% 15%;
-    --muted-foreground: 150 10% 55%;
+    --muted: 0 0% 93%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 43 80% 55%;
-    --accent-foreground: 150 20% 4%;
+    --accent: 43 75% 48%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 150 15% 18%;
-    --input: 150 15% 18%;
-    --ring: 150 40% 30%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 152 45% 28%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 150 15% 6%;
-    --sidebar-foreground: 40 20% 90%;
-    --sidebar-primary: 150 40% 30%;
-    --sidebar-primary-foreground: 40 20% 95%;
-    --sidebar-accent: 150 15% 12%;
-    --sidebar-accent-foreground: 40 20% 90%;
-    --sidebar-border: 150 15% 18%;
-    --sidebar-ring: 150 40% 30%;
+    --ayah-highlight: 152 40% 94%;
+    --ayah-number: 152 45% 28%;
+    --bismillah: 152 45% 28%;
+    --surah-header: 152 30% 95%;
 
-    --ayah-highlight: 150 40% 15%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 0 0% 15%;
+    --sidebar-primary: 152 45% 28%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 95%;
+    --sidebar-accent-foreground: 0 0% 15%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 152 45% 28%;
+  }
+
+  .dark {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 95%;
+
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 152 45% 35%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 85%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 55%;
+
+    --accent: 43 80% 55%;
+    --accent-foreground: 0 0% 5%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 152 45% 35%;
+
+    --ayah-highlight: 152 30% 12%;
     --ayah-number: 43 80% 55%;
     --bismillah: 43 80% 55%;
-    --surah-header: 150 30% 20%;
+    --surah-header: 152 20% 12%;
+
+    --sidebar-background: 0 0% 6%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 152 45% 35%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 0 0% 18%;
+    --sidebar-ring: 152 45% 35%;
   }
 }
 
@@ -76,7 +120,6 @@
   transition: all 0.3s ease;
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -88,12 +131,10 @@
   border-radius: 3px;
 }
 
-/* Smooth scroll */
 html {
   scroll-behavior: smooth;
 }
 
-/* Audio player gradient */
 .player-gradient {
   background: linear-gradient(180deg, transparent 0%, hsl(var(--background)) 100%);
 }
@@ -107,11 +148,35 @@ html {
   animation: fade-in 0.4s ease forwards;
 }
 
-@keyframes pulse-gold {
-  0%, 100% { box-shadow: 0 0 0 0 hsla(43, 80%, 55%, 0.4); }
-  50% { box-shadow: 0 0 0 8px hsla(43, 80%, 55%, 0); }
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 hsl(var(--primary) / 0.4); }
+  50% { box-shadow: 0 0 0 8px hsl(var(--primary) / 0); }
 }
 
 .pulse-gold {
-  animation: pulse-gold 2s infinite;
+  animation: pulse-glow 2s infinite;
+}
+
+/* Mushaf page view - flowing text */
+.mushaf-page {
+  font-family: 'Amiri', serif;
+  text-align: justify;
+  text-align-last: center;
+  direction: rtl;
+  line-height: 3;
+}
+
+.mushaf-page .ayah-inline {
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.mushaf-page .ayah-inline:hover {
+  background-color: hsl(var(--muted));
+}
+
+.mushaf-page .ayah-inline.active {
+  background-color: hsl(var(--ayah-highlight));
 }
